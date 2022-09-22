@@ -15,6 +15,7 @@ interface Props<T> extends Omit<ScrollViewProps, 'refreshControl'> {
   loading?: boolean;
   refreshing?: RefreshControlProps['refreshing'];
   onRefresh?: RefreshControlProps['onRefresh'];
+  progressViewOffset?: RefreshControlProps['progressViewOffset'];
   refreshControl?: boolean;
   onEndReached?: () => void;
   onEndReachedThreshold?: number;
@@ -69,6 +70,7 @@ function MasonryList<T>(props: Props<T>): ReactElement {
     removeClippedSubviews = false,
     keyExtractor,
     refreshControl = true,
+    progressViewOffset = 0,
   } = props;
 
   const {style, ...propsWithoutStyle} = props;
@@ -83,6 +85,7 @@ function MasonryList<T>(props: Props<T>): ReactElement {
       refreshControl={
         refreshControl ? (
           <RefreshControl
+            progressViewOffset={progressViewOffset}
             refreshing={!!(refreshing || isRefreshing)}
             onRefresh={() => {
               setIsRefreshing(true);
